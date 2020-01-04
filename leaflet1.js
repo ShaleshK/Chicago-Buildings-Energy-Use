@@ -2,7 +2,7 @@
 // Chose Merch Mart as the center coordinate
 var map = L.map("map", {
     center: [41.8885, -87.6355],
-    zoom: 6
+    zoom: 12
   });
 
   L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
