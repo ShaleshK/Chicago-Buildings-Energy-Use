@@ -1,6 +1,13 @@
 var globalData;
+d3.json("https://agile-beyond-24167.herokuapp.com/API/data").then(test => console.log("test: ", test.data[0]));
 function init(data) {
-  d3.csv("Buildings.csv").then(data => {
+  // var parsedInfo = JSON.parse(information.then(function(Response){console.log(Response)}));
+  const url = "https://agile-beyond-24167.herokuapp.com/API/data";
+
+  d3.json(url).then(api_data => {
+    data = api_data.data;
+  // d3.csv("Buildings.csv").then(data => {
+    console.log("data:", data[0]);
     globalData = data;
     var property = [];
     var sqFt = [];
@@ -8,18 +15,19 @@ function init(data) {
     var kBtuSqft = [];
     var propertyTypes = [];
     for (var i = 0; i < data.length; i++) {
-      if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
+      if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
         var dataItem = data[i];
-        var feet = Number(dataItem.SqFt)/100000;
+        // var feet = Number(dataItem["Gross Floor Area - Buildings (sq ft)"])/100000;
+        var feet = 100;
         if (feet < 5) {
           feet = 10;
         }
-        property.push(dataItem.Name);
+        property.push(dataItem.property_name);
         sqFt.push(feet);
-        age.push(dataItem.Year_Built);
-        kBtuSqft.push(Number(dataItem.Site_EUI_kBtu_sqft));
-        if (!propertyTypes.includes(data[i]["Primary Property Type"])) {
-          propertyTypes.push(data[i]["Primary Property Type"])
+        age.push(dataItem.year_built);
+        kBtuSqft.push(Number(dataItem.site_eui_kbtu_sq_ft));
+        if (!propertyTypes.includes(data[i].primary_property_type)) {
+          propertyTypes.push(data[i].primary_property_type)
         }   
       }
     }
@@ -66,13 +74,12 @@ function init(data) {
     Plotly.newPlot('bubble', data, layout); 
   });
 }
-
 function buildChart(propertyType) {
   console.log("buildChart")
   if (propertyType == "all") {
     data = globalData;
   } else {
-    data = globalData.filter(x => x["Primary Property Type"].replace(/\s/g, '') == propertyType)
+    data = globalData.filter(x => x.primary_property_type.replace(/\s/g, '') == propertyType)
   }
   console.log(data);
   var property = [];
@@ -80,16 +87,19 @@ function buildChart(propertyType) {
   var age = [];
   var kBtuSqft = [];
   for (var i = 0; i < data.length; i++) {
-    if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
+
+    if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
       var dataItem = data[i];
-      var feet = Number(dataItem.SqFt)/100000;
+      // var feet = Number(dataItem.SqFt)/100000;
+      var feet = 100;
       if (feet < 5) {
         feet = 10;
       }
-      property.push(dataItem.Name);
+
+      property.push(dataItem.property_name);
       sqFt.push(feet);
-      age.push(dataItem.Year_Built);
-      kBtuSqft.push(Number(dataItem.Site_EUI_kBtu_sqft));
+      age.push(dataItem.year_built);
+      kBtuSqft.push(Number(dataItem.site_eui_kbtu_sq_ft));
     }
   }   
   var trace1 = {
