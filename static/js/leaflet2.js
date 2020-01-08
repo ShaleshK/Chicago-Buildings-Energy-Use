@@ -1,10 +1,12 @@
 
-// Create tile layer
+// Initialize heroku url
 const url = "https://agile-beyond-24167.herokuapp.com/API/data"
 
+// Get info from heroku
 function genInfo() {
     d3.json(url).then(function(data) {
     
+    // Create arrays for function
     var lats = [];
     var longs = [];
     var years = [];
@@ -13,11 +15,10 @@ function genInfo() {
     var engs = [];
     var elects = [];
     var addresses = [];
+    // Will uncomment once Corry fixes api
     // var sizes = [];
     
-    // console.log(data);
-
-    // console.log(data.data.length);
+    // Add heroku data to arrays
     for (i = 0; i < data.data.length; i++) {
         lats.push(data.data[i].latitude);
         longs.push(data.data[i].longitude);
@@ -26,16 +27,18 @@ function genInfo() {
         addresses.push(data.data[i].address);
         engs.push(data.data[i].site_eui_kbtu_sq_ft);
         names.push(data.data[i].property_name);
-        // console.log(names);
         elects.push(data.data[i].electricity_use_kbtu);
+        // Will uncomment once Corry fixes api
         // sizes.push(data.data[i].whateverthesizeis);
     }
+    // Create tilelayer
     var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
       maxZoom: 18,
       id: "mapbox.streets",
       accessToken: API_KEY
       });
+
   // Initialize all of the LayerGroups we'll be using
   var layers = {
       eng_less_100: new L.LayerGroup(),
@@ -117,6 +120,7 @@ var icons = {
         shape: "circle"
         })
 }
+//Keeping in case heroku ever goes down
 // d3.csv("Buildings.csv").then((data) => {
         // Create an object to keep of the number of markers in each layer
         var buildingCount = {
@@ -130,9 +134,7 @@ var icons = {
           // Initialize a buildingAge, which will be used as a key to access the appropriate layers, icons, and building age for layer group
           var buildingEff;
       
-    // Create a new marker cluster group
-    // var markers = L.markerClusterGroup();
-
+    //Keeping in case heroku ever goes down
     // locations = [];
     // for (i = 0; i < data.length; i++) {
     //     if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
@@ -143,9 +145,10 @@ var icons = {
     //         var sqFt = dataItem.SqFt;
     //         var age = dataItem.Year_Built;
     //         var color;
+
+
+    // Plot data from heroku arrays
     for (j = 0; j < data.data.length; j++) {
-      // console.log(j)
-      // console.log(years[j])
       if (Number(years[j]) >= 2017 
       && engs[j] != null
       ) {
@@ -184,6 +187,7 @@ var icons = {
               }
             }
             buildingCount[buildingEff]++;
+            //Keeping in case heroku ever goes down
             // var latLong = [lat, long];
             var newMarker = L.marker([lat, long]
               , {
@@ -193,12 +197,13 @@ var icons = {
               // Add the new marker to the appropriate layer
             newMarker.addTo(layers[buildingEff]);
 
-                // .addTo(layers[buildingAge])
+            // Add popup
             newMarker.bindPopup("<h1>" + names[j] 
             + "</h1> <hr> <h5>" 
             + "Energy Consumption: " 
             + engs[j]
             + " kBtu/sq ft </h5> <h5>" 
+            // Will uncomment once Corry fixes heroku
             // + "Square Footage: "
             // + sqFt
             // + " ft^2</h5>"
@@ -207,25 +212,20 @@ var icons = {
             + age
             + "</h5>"
             );
+            //Keeping in case heroku ever goes down
             // locations.push(latLong);
-            // console.log(latLong);
         }
     }
     // Call the updateLegend function, which will... update the legend!
     updateLegend(buildingCount);
 
 
-// map.addLayer(markers);
+//Keeping in case heroku ever goes down
 // });
 
 // Update the legend's innerHTML with the last updated time and station count
 function updateLegend(buildingCount) {
     document.querySelector(".legend").innerHTML = [
-      // "<p class='before-1900'>Buildings Where kBTU/sq ft < 100: " + buildingCount.eng_less_100 + "</p>",
-      // "<p class='between-1900-1920'>Buildings Where kBTU/sq ft Between 100 & 200: " + buildingCount.eng_less_200 + "</p>",
-      // "<p class='between-1920-1940'>Buildings Where kBTU/sq ft Between 200 & 300: " + buildingCount.eng_less_300 + "</p>",
-      // "<p class='between-1940-1960'>Buildings Where kBTU/sq ft Between 300 & 400: " + buildingCount.eng_less_400 + "</p>",
-      // "<p class='between-1960-1980'>Buildings Where kBTU/sq ft > 400: " + buildingCount.eng_great_400 + "</p>"
       " <div class='my-legend'>" +
       "<div class='legend-title'>Legend</div>" +
       "<div class='legend-scale'>" +
@@ -242,4 +242,6 @@ function updateLegend(buildingCount) {
     ].join("");
   }
 })};
+
+// Actually call the function
 genInfo();

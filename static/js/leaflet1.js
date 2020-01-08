@@ -3,6 +3,7 @@
 // var parsedInfo = JSON.parse(information.then(function(Response){console.log(Response)}));
 const url = "https://agile-beyond-24167.herokuapp.com/API/data"
 
+// Pull data from heroku
 function genInfo() {
     d3.json(url).then(function(data) {
     
@@ -16,9 +17,7 @@ function genInfo() {
     var addresses = [];
     // var sizes = [];
     
-    // console.log(data);
-
-    // console.log(data.data.length);
+    // push heroku data into arrays
     for (i = 0; i < data.data.length; i++) {
         lats.push(data.data[i].latitude);
         longs.push(data.data[i].longitude);
@@ -27,13 +26,9 @@ function genInfo() {
         addresses.push(data.data[i].address);
         engs.push(data.data[i].site_eui_kbtu_sq_ft);
         names.push(data.data[i].property_name);
-        // console.log(names);
         elects.push(data.data[i].electricity_use_kbtu);
-        // sizes.push(data.data[i].whateverthesizeis);
     }
-    // console.log(ages);
-    // console.log(names);
-    // console.log(lats);
+
     // Create tile layer
     var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -65,39 +60,36 @@ function genInfo() {
     // Add the info legend to the map
     info.addTo(map);
     
+    // Keeping .csv function in case heroku ever goes down
     // d3.csv("Buildings.csv").then((data) => {
             // Create an object to keep of the number of markers in each layer
-            var buildingCount = {
-                age_less_1900: 0,
-                age_less_1920: 0,
-                age_less_1940: 0,
-                age_less_1960: 0,
-                age_less_1980: 0,
-                age_less_2000: 0,
-                age_less_2020: 0
-            };
+        var buildingCount = {
+            age_less_1900: 0,
+            age_less_1920: 0,
+            age_less_1940: 0,
+            age_less_1960: 0,
+            age_less_1980: 0,
+            age_less_2000: 0,
+            age_less_2020: 0
+        };
         
             // Initialize a buildingAge, which will be used as a key to access the appropriate layers, icons, and building age for layer group
             var buildingAge;
         
         // Create a new marker cluster group
         var markers = L.markerClusterGroup();
-        // console.log(lats.length);
+
+        //Keeping in case heroku ever goes down
         // locations = [];
         for (j = 0; j < data.data.length; j++) {
-            // console.log(j)
-            // console.log(years[j])
+
             if (Number(years[j]) >= 2017) {
-                // console.log(j);
+                //Keeping in case heroku ever goes down
                 // var dataItem = data[i];
                 var lat = lats[j];
-                // console.log(lat);
                 var long = longs[j];
-                // console.log(long)
                 var energy = engs[j];
-                // var sqFt = sizes[j];
                 var age = ages[j];
-                // console.log(age);
                 var color;
 
                 if (age < 1900) {
@@ -129,6 +121,7 @@ function genInfo() {
                     color = "black";
                 }
                 buildingCount[buildingAge]++;
+                //Keeping in case heroku ever goes down
                 // var latLong = [lat, long];
 
                 var newIcon = L.ExtraMarkers.icon({
@@ -142,13 +135,13 @@ function genInfo() {
                     ,
                     {icon: newIcon}
                     )
-                    // .addTo(layers[buildingAge])
                 
                     .bindPopup("<h1>" + names[j] 
                 + "</h1> <hr> <h5>" 
                 + "Energy Consumption: " 
                 + energy
                 + " kBtu/sq ft </h5> <h5>" 
+                // Will uncomment once Corry fixes api
                 // + "Square Footage: "
                 // + sqFt
                 // + " ft^2</h5>"
@@ -157,8 +150,8 @@ function genInfo() {
                 + age
                 + "</h5>"
                 ));
+                //Keeping in case heroku ever goes down
                 // locations.push(latLong);
-                // console.log(latLong);
             }
         }
         // Call the updateLegend function, which will... update the legend!
@@ -166,19 +159,12 @@ function genInfo() {
 
 
     map.addLayer(markers);
+    // End of .csv function
     // });
 
     // Update the legend's innerHTML with the last updated time and station count
     function updateLegend(buildingCount) {
         document.querySelector(".legend").innerHTML = [
-        // "<p class='before-1900'> <div class = 'block-1900' </div> Buildings Built Before 1900: " + buildingCount.age_less_1900 + " </p> <br/> <br/> <br/>",
-        // "<p class='between-1900-1920'>Buildings Built Between 1900 and 1920: " + buildingCount.age_less_1920 + "</p> ",
-        // "<p class='between-1920-1940'>Buildings Built Between 1920 and 1940: " + buildingCount.age_less_1940 + "</p> ",
-        // "<p class='between-1940-1960'>Buildings Built Between 1940 and 1960: " + buildingCount.age_less_1960 + "</p> ",
-        // "<p class='between-1960-1980'>Buildings Built Between 1960 and 1980: " + buildingCount.age_less_1980 + "</p> ",
-        // "<p class='between-1980-2000'>Buildings Built Between 1980 and 2000: " + buildingCount.age_less_2000 + "</p> ",
-        // "<p class='between-2000-2020'>Buildings Built After 2000: " + buildingCount.age_less_2020 + "</p>"
-        // ]
        " <div class='my-legend'>" +
             "<div class='legend-title'>Legend</div>" +
             "<div class='legend-scale'>" +
@@ -198,4 +184,5 @@ function genInfo() {
     }
 })};
 
+//Actually call the function
 genInfo();
