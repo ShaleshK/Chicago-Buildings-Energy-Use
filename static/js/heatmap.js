@@ -86,7 +86,7 @@ d3.json(url2).then( function(response) {
   var overlays = {
     "Streets": streets
   }
-  var myMap = L.map("map", {
+  var myMap = L.map("map3", {
   center: [41.8781, -87.6298],
   zoom: 10.5,
   layers:[streets,heat1]
