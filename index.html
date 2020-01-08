@@ -19,7 +19,7 @@
 
    <!-- Icons -->
    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-   <link rel="stylesheet" href="leaflet.extra-markers.min.css">
+   <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css">
 
 <!-- Marker Cluster JS & CSS -->
 <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
@@ -27,7 +27,7 @@
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
  
 <!-- Our CSS -->
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 
 <body style="background-color: rgba(223, 217, 217, 0.739);">
@@ -49,14 +49,29 @@
             </div>
             </form>
     </nav>
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div id="bubble"></div>
             </div>
         </div>
-    </div>
-    <br>
+    </div> -->
+    <div class="container">
+            <!-- <div class="row">
+            </div> -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="well">
+                      <h5>Property Type</h5>
+                      <select id="selDataset" onchange="optionChanged(this.value)"></select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div id="bubble"></div>
+                </div>
+            </div>
+        </div>
+    <br> 
     <!-- map div -->
     <!-- <div class="container">
         <br>
@@ -78,10 +93,10 @@
 
       <!-- Icons -->
       <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-      <script src="leaflet.extra-markers.min.js"></script>
+      <script src="static/js/leaflet.extra-markers.min.js"></script>
 
-    <script src="app.js"></script>
-    <script src="config.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/config.js"></script>
     <!-- <script src="leaflet1.js"></script> -->
 
 

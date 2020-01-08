@@ -9,25 +9,31 @@ function genInfo() {
     var lats = [];
     var longs = [];
     var years = [];
+    var ages = [];
     var names = [];
     var engs = [];
     var elects = [];
+    var addresses = [];
     // var sizes = [];
     
-    console.log(data);
+    // console.log(data);
 
     // console.log(data.data.length);
     for (i = 0; i < data.data.length; i++) {
         lats.push(data.data[i].latitude);
         longs.push(data.data[i].longitude);
-        years.push(data.data[i].year_built);
+        years.push(data.data[i].data_year);
+        ages.push(data.data[i].year_built);
         addresses.push(data.data[i].address);
         engs.push(data.data[i].site_eui_kbtu_sq_ft);
+        names.push(data.data[i].property_name);
+        // console.log(names);
         elects.push(data.data[i].electricity_use_kbtu);
         // sizes.push(data.data[i].whateverthesizeis);
     }
-
-    console.log(lats);
+    console.log(ages);
+    // console.log(names);
+    // console.log(lats);
     // Create tile layer
     var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -76,16 +82,22 @@ function genInfo() {
         
         // Create a new marker cluster group
         var markers = L.markerClusterGroup();
-
+        // console.log(lats.length);
         // locations = [];
-        for (i = 0; i < data.length; i++) {
-            if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
+        for (j = 0; j < data.data.length; j++) {
+            // console.log(j)
+            // console.log(years[j])
+            if (Number(years[j]) >= 2017 && Number(engs[j])<=500) {
+                // console.log(j);
                 // var dataItem = data[i];
-                var lat = lats[i];
-                var long = longs[i];
-                var energy = engs[i];
-                // var sqFt = sizes[i];
-                var age = years[i];
+                var lat = lats[j];
+                // console.log(lat);
+                var long = longs[j];
+                // console.log(long)
+                var energy = engs[j];
+                // var sqFt = sizes[j];
+                var age = ages[j];
+                console.log(age);
                 var color;
 
                 if (age < 1900) {
@@ -132,7 +144,7 @@ function genInfo() {
                     )
                     // .addTo(layers[buildingAge])
                 
-                    .bindPopup("<h1>" + data[i].Name 
+                    .bindPopup("<h1>" + names[j] 
                 + "</h1> <hr> <h3>" 
                 + "Energy Consumption: " 
                 + energy

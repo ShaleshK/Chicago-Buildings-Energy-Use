@@ -1,20 +1,49 @@
 
 // Create tile layer
-var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-maxZoom: 18,
-id: "mapbox.streets",
-accessToken: API_KEY
-});
+const url = "https://agile-beyond-24167.herokuapp.com/API/data"
 
-// Initialize all of the LayerGroups we'll be using
-var layers = {
-    eng_less_100: new L.LayerGroup(),
-    eng_less_200: new L.LayerGroup(),
-    eng_less_300: new L.LayerGroup(),
-    eng_less_400: new L.LayerGroup(),
-    eng_great_400: new L.LayerGroup()
-  };
+function genInfo() {
+    d3.json(url).then(function(data) {
+    
+    var lats = [];
+    var longs = [];
+    var years = [];
+    var ages = [];
+    var names = [];
+    var engs = [];
+    var elects = [];
+    var addresses = [];
+    // var sizes = [];
+    
+    // console.log(data);
+
+    // console.log(data.data.length);
+    for (i = 0; i < data.data.length; i++) {
+        lats.push(data.data[i].latitude);
+        longs.push(data.data[i].longitude);
+        years.push(data.data[i].data_year);
+        ages.push(data.data[i].year_built);
+        addresses.push(data.data[i].address);
+        engs.push(data.data[i].site_eui_kbtu_sq_ft);
+        names.push(data.data[i].property_name);
+        // console.log(names);
+        elects.push(data.data[i].electricity_use_kbtu);
+        // sizes.push(data.data[i].whateverthesizeis);
+    }
+    var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+      maxZoom: 18,
+      id: "mapbox.streets",
+      accessToken: API_KEY
+      });
+  // Initialize all of the LayerGroups we'll be using
+  var layers = {
+      eng_less_100: new L.LayerGroup(),
+      eng_less_200: new L.LayerGroup(),
+      eng_less_300: new L.LayerGroup(),
+      eng_less_400: new L.LayerGroup(),
+      eng_great_400: new L.LayerGroup()
+    };
 
 // Creating map object
 // Chose Merch Mart as the center coordinate
@@ -65,7 +94,7 @@ var icons = {
     }),
     eng_less_200: L.ExtraMarkers.icon({
         icon: "ion-settings",
-        iconColor: "white",
+        iconColor: "black",
         markerColor: "white",
         shape: "circle"
       }),
@@ -88,7 +117,7 @@ var icons = {
         shape: "circle"
         })
 }
-d3.csv("Buildings.csv").then((data) => {
+// d3.csv("Buildings.csv").then((data) => {
         // Create an object to keep of the number of markers in each layer
         var buildingCount = {
             eng_less_100: 0,
@@ -105,15 +134,30 @@ d3.csv("Buildings.csv").then((data) => {
     // var markers = L.markerClusterGroup();
 
     // locations = [];
-    for (i = 0; i < data.length; i++) {
-        if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
-            var dataItem = data[i];
-            var lat = dataItem.Latitude;
-            var long = dataItem.Longitude;
-            var energy = parseInt(dataItem.Site_EUI_kBtu_sqft);
-            var sqFt = dataItem.SqFt;
-            var age = dataItem.Year_Built;
-            var color;
+    // for (i = 0; i < data.length; i++) {
+    //     if (data[i].Data_Year >= 2017 && Number(data[i].Site_EUI_kBtu_sqft)<=500) {
+    //         var dataItem = data[i];
+    //         var lat = dataItem.Latitude;
+    //         var long = dataItem.Longitude;
+    //         var energy = parseInt(dataItem.Site_EUI_kBtu_sqft);
+    //         var sqFt = dataItem.SqFt;
+    //         var age = dataItem.Year_Built;
+    //         var color;
+    for (j = 0; j < data.data.length; j++) {
+      // console.log(j)
+      // console.log(years[j])
+      if (Number(years[j]) >= 2017 && Number(engs[j])<=500) {
+          // console.log(j);
+          // var dataItem = data[i];
+          var lat = lats[j];
+          // console.log(lat);
+          var long = longs[j];
+          // console.log(long)
+          var energy = engs[j];
+          // var sqFt = sizes[j];
+          var age = ages[j];
+          // console.log(age);
+          var color;
             if (energy > 0) {
 
               if (energy < 100) {
@@ -148,15 +192,15 @@ d3.csv("Buildings.csv").then((data) => {
             newMarker.addTo(layers[buildingEff]);
 
                 // .addTo(layers[buildingAge])
-            newMarker.bindPopup("<h1>" + data[i].Name 
+            newMarker.bindPopup("<h1>" + names[j] 
             + "</h1> <hr> <h3>" 
             + "Energy Consumption: " 
             + energy
             + " kBtu/sq ft </h3> <h3>" 
-            + "Square Footage: "
-            + sqFt
-            + " ft^2</h3>"
-            + "<h3>"
+            // + "Square Footage: "
+            // + sqFt
+            // + " ft^2</h3>"
+            // + "<h3>"
             + "Year Built: "
             + age
             + "</h3>"
@@ -170,7 +214,7 @@ d3.csv("Buildings.csv").then((data) => {
 
 
 // map.addLayer(markers);
-});
+// });
 
 // Update the legend's innerHTML with the last updated time and station count
 function updateLegend(buildingCount) {
@@ -182,3 +226,5 @@ function updateLegend(buildingCount) {
       "<p class='between-1960-1980'>Buildings Where kBTU/sq ft > 400: " + buildingCount.eng_great_400 + "</p>"
     ].join("");
   }
+})};
+genInfo();
