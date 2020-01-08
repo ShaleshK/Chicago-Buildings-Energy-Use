@@ -30,8 +30,25 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body>
-
+<body style="background-color: rgba(223, 217, 217, 0.739);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand " href="index.html">Building Data</a>
+            <form class="form-inline">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home </a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="firstmap.html">Age Map</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="secondmap.html">Energy Map</a>
+                </li>
+                </ul>
+            </div>
+            </form>
+    </nav>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -41,14 +58,15 @@
     </div>
     <br>
     <!-- map div -->
-    <div class="container">
+    <!-- <div class="container">
+        <br>
         <div class="row">
             <div class="col-md-12">
                 <div id="map"></div>
             </div>
         </div>
     </div>
-    <br>
+    <br> -->
         
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -57,13 +75,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+      <!-- Icons -->
+      <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <script src="leaflet.extra-markers.min.js"></script>
+
     <script src="app.js"></script>
     <script src="config.js"></script>
-    <script src="leaflet1.js"></script>
-
-    <!-- Icons -->
-    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <script src="leaflet.extra-markers.min.js"></script>
+    <!-- <script src="leaflet1.js"></script> -->
 
 
 </body>

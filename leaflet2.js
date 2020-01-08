@@ -22,8 +22,6 @@ var map = L.map("map2", {
     center: [41.8885, -87.6355],
     zoom: 11,
     layers: [
-        layers.eng_less_100,
-        layers.eng_less_200,
         layers.eng_less_300,
         layers.eng_less_400,
         layers.eng_great_400
@@ -62,31 +60,31 @@ var icons = {
     eng_less_100: L.ExtraMarkers.icon({
       icon: "ion-settings",
       iconColor: "white",
-      markerColor: "#edf8fb",
+      markerColor: "red",
       shape: "circle"
     }),
     eng_less_200: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "#ccece6",
+        markerColor: "white",
         shape: "circle"
       }),
     eng_less_300: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "#99d8c9",
+        markerColor: "blue",
         shape: "circle"
     }),
     eng_less_400: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "#66c2a4",
+        markerColor: "green",
         shape: "circle"
         }),
     eng_great_400: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "#005824",
+        markerColor: "orange",
         shape: "circle"
         })
 }
