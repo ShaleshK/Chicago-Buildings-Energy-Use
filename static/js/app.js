@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+// <<<<<<< HEAD 
 var globalData;
 d3.json("https://agile-beyond-24167.herokuapp.com/API/data").then(test => console.log("test: ", test.data[0]));
 function init(data) {
@@ -136,7 +136,7 @@ function optionChanged(newSample) {
 }
 // Initialize the dashboard
 init();
-=======
+// =======
 var globalData;
 d3.json("https://agile-beyond-24167.herokuapp.com/API/data").then(test => console.log("test: ", test.data[0]));
 function init(data) {
@@ -274,4 +274,4 @@ function optionChanged(newSample) {
 }
 // Initialize the dashboard
 init();
->>>>>>> 159ac2f57af2b69285984459b8edc1951779dc53
+// >>>>>>> 159ac2f57af2b69285984459b8edc1951779dc53
