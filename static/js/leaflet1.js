@@ -87,7 +87,7 @@ function genInfo() {
         for (j = 0; j < data.data.length; j++) {
             // console.log(j)
             // console.log(years[j])
-            if (Number(years[j]) >= 2017 && Number(engs[j])<=500) {
+            if (Number(years[j]) >= 2017) {
                 // console.log(j);
                 // var dataItem = data[i];
                 var lat = lats[j];

@@ -146,7 +146,9 @@ var icons = {
     for (j = 0; j < data.data.length; j++) {
       // console.log(j)
       // console.log(years[j])
-      if (Number(years[j]) >= 2017 && Number(engs[j])<=500) {
+      if (Number(years[j]) >= 2017 
+      && engs[j] != null
+      ) {
           // console.log(j);
           // var dataItem = data[i];
           var lat = lats[j];
@@ -195,7 +197,7 @@ var icons = {
             newMarker.bindPopup("<h1>" + names[j] 
             + "</h1> <hr> <h5>" 
             + "Energy Consumption: " 
-            + energy
+            + engs[j]
             + " kBtu/sq ft </h5> <h5>" 
             // + "Square Footage: "
             // + sqFt
