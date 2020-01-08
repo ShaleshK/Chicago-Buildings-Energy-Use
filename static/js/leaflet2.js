@@ -94,26 +94,26 @@ var icons = {
     }),
     eng_less_200: L.ExtraMarkers.icon({
         icon: "ion-settings",
-        iconColor: "black",
-        markerColor: "white",
+        iconColor: "white",
+        markerColor: "orange",
         shape: "circle"
       }),
     eng_less_300: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "blue",
+        markerColor: "green",
         shape: "circle"
     }),
     eng_less_400: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "green",
+        markerColor: "blue",
         shape: "circle"
         }),
     eng_great_400: L.ExtraMarkers.icon({
         icon: "ion-settings",
         iconColor: "white",
-        markerColor: "orange",
+        markerColor: "violet",
         shape: "circle"
         })
 }
@@ -193,17 +193,17 @@ var icons = {
 
                 // .addTo(layers[buildingAge])
             newMarker.bindPopup("<h1>" + names[j] 
-            + "</h1> <hr> <h3>" 
+            + "</h1> <hr> <h5>" 
             + "Energy Consumption: " 
             + energy
-            + " kBtu/sq ft </h3> <h3>" 
+            + " kBtu/sq ft </h5> <h5>" 
             // + "Square Footage: "
             // + sqFt
-            // + " ft^2</h3>"
-            // + "<h3>"
+            // + " ft^2</h5>"
+            // + "<h5>"
             + "Year Built: "
             + age
-            + "</h3>"
+            + "</h5>"
             );
             // locations.push(latLong);
             // console.log(latLong);
@@ -219,11 +219,24 @@ var icons = {
 // Update the legend's innerHTML with the last updated time and station count
 function updateLegend(buildingCount) {
     document.querySelector(".legend").innerHTML = [
-      "<p class='before-1900'>Buildings Where kBTU/sq ft < 100: " + buildingCount.eng_less_100 + "</p>",
-      "<p class='between-1900-1920'>Buildings Where kBTU/sq ft Between 100 & 200: " + buildingCount.eng_less_200 + "</p>",
-      "<p class='between-1920-1940'>Buildings Where kBTU/sq ft Between 200 & 300: " + buildingCount.eng_less_300 + "</p>",
-      "<p class='between-1940-1960'>Buildings Where kBTU/sq ft Between 300 & 400: " + buildingCount.eng_less_400 + "</p>",
-      "<p class='between-1960-1980'>Buildings Where kBTU/sq ft > 400: " + buildingCount.eng_great_400 + "</p>"
+      // "<p class='before-1900'>Buildings Where kBTU/sq ft < 100: " + buildingCount.eng_less_100 + "</p>",
+      // "<p class='between-1900-1920'>Buildings Where kBTU/sq ft Between 100 & 200: " + buildingCount.eng_less_200 + "</p>",
+      // "<p class='between-1920-1940'>Buildings Where kBTU/sq ft Between 200 & 300: " + buildingCount.eng_less_300 + "</p>",
+      // "<p class='between-1940-1960'>Buildings Where kBTU/sq ft Between 300 & 400: " + buildingCount.eng_less_400 + "</p>",
+      // "<p class='between-1960-1980'>Buildings Where kBTU/sq ft > 400: " + buildingCount.eng_great_400 + "</p>"
+      " <div class='my-legend'>" +
+      "<div class='legend-title'>Legend</div>" +
+      "<div class='legend-scale'>" +
+          "<ul class='legend-labels'>" +
+              "<li><span style='background:#b50e0e;'></span> Buildings Where kBTU/sq ft < 100: " + buildingCount.eng_less_100 + "</li>" +
+              "<li><span style='background:#e37a09;'></span>Buildings Where kBTU/sq ft Between 100 & 200: " + buildingCount.eng_less_200 + "</li>" +
+              "<li><span style='background:#108f07;'></span>Buildings Where kBTU/sq ft Between 200 & 300: " + buildingCount.eng_less_300 + "</li>" +
+              "<li><span style='background:#0964e3;'></span>Buildings Where kBTU/sq ft Between 300 & 400: " + buildingCount.eng_less_400 + "</li>" +
+              "<li><span style='background:#610d91;'></span>Buildings Where kBTU/sq ft > 400: " + buildingCount.eng_great_400 + "</li>" + 
+          "</ul>"+
+      "</div>"+
+      "<div class='legend-source'>Source: <a href='https://data.cityofchicago.org/Environment-Sustainable-Development/Chicago-Energy-Benchmarking/xq83-jr8c' target='blank_'>Chicago Energy Benchmarking</a></div>"+
+      "</div>"
     ].join("");
   }
 })};

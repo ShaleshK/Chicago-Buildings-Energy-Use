@@ -106,7 +106,7 @@ function genInfo() {
                 }
                 else if (age < 1920) {
                     buildingAge = "age_less_1920";
-                    color = "orange-dark";
+                    color = "orange";
                 }
                 else if (age < 1940) {
                     buildingAge = "age_less_1940";
@@ -183,7 +183,7 @@ function genInfo() {
             "<div class='legend-title'>Legend</div>" +
             "<div class='legend-scale'>" +
                 "<ul class='legend-labels'>" +
-                    "<li><span style='background:#e3180e;'></span> Buildings Built Before 1900: " + buildingCount.age_less_1900 + "</li>" +
+                    "<li><span style='background:#b50e0e;'></span> Buildings Built Before 1900: " + buildingCount.age_less_1900 + "</li>" +
                     "<li><span style='background:#e37a09;'></span>Buildings Built Between 1900 and 1920: " + buildingCount.age_less_1920 + "</li>" +
                     "<li><span style='background:#0964e3;'></span>Buildings Built Between 1920 and 1940: " + buildingCount.age_less_1940 + "</li>" +
                     "<li><span style='background:#09bfe3;'></span>Buildings Built Between 1940 and 1960: " + buildingCount.age_less_1960 + "</li>" +
@@ -192,7 +192,7 @@ function genInfo() {
                     "<li><span style='background:#000000;'></span>Buildings Built Between 2000 and 2020: " + buildingCount.age_less_2020 + "</li>" + 
                 "</ul>"+
             "</div>"+
-            "<div class='legend-source'>Source: <a href='https://data.cityofchicago.org/Environment-Sustainable-Development/Chicago-Energy-Benchmarking/xq83-jr8c'>Chicago Energy Benchmarking</a></div>"+
+            "<div class='legend-source'>Source: <a href='https://data.cityofchicago.org/Environment-Sustainable-Development/Chicago-Energy-Benchmarking/xq83-jr8c target='blank_'>Chicago Energy Benchmarking</a></div>"+
             "</div>"]
         .join("");
     }
