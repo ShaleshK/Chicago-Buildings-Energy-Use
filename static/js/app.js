@@ -18,8 +18,8 @@ function init(data) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
         var dataItem = data[i];
-        // var feet = Number(dataItem["Gross Floor Area - Buildings (sq ft)"])/100000;
-        var feet = 100;
+        var feet = Number(dataItem.gross_floor_area_buildings_sq_ft)/100000;
+        // var feet = 100;
         if (feet < 5) {
           feet = 10;
         }
@@ -30,8 +30,8 @@ function init(data) {
         if (!propertyTypes.includes(data[i].primary_property_type)) {
           propertyTypes.push(data[i].primary_property_type)
         }   
-        if (!zipCodes.includes(data[i].zip_code)) {
-          zipCodes.push(data[i].zip_code)
+        // if (!zipCodes.includes(data[i].zip_code)) {
+        //   zipCodes.push(data[i].zip_code)
         }   
       }
     }
@@ -52,15 +52,15 @@ function init(data) {
     //   .append("option")
     //   .text(d => d)
     //   .property("value", d => d.replace(/\s/g, ''));
-    zipDropdown.append("option")
-    .text("All")
-    .property("value", "all");
+    // zipDropdown.append("option")
+    // .text("All")
+    // .property("value", "all");
 
-    zipCodes.forEach(function(type) {
-      dropdown.append("option")
-      .text(type)
-      .property("value");     
-    })
+    // zipCodes.forEach(function(type) {
+    //   dropdown.append("option")
+    //   .text(type)
+    //   .property("value");     
+    // })
   
     // console.log(sqFt);  , type.replace(/\s/g, '')
     console.log(kBtuSqft);
@@ -103,8 +103,8 @@ function buildChart(propertyType) {
 
     if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
       var dataItem = data[i];
-      // var feet = Number(dataItem.SqFt)/100000;
-      var feet = 100;
+      var feet = Number(dataItem.SqFt)/100000;
+      // var feet = 100;
       if (feet < 5) {
         feet = 10;
       }
