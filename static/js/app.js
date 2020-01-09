@@ -34,7 +34,7 @@ function init(data) {
         //   zipCodes.push(data[i].zip_code)
         }   
       }
-    }
+    })
     console.log(zipCodes);
     var dropdown = d3.select("#selDataset");
     var zipDropdown = d3.select("#selDataset2");
@@ -85,8 +85,8 @@ function init(data) {
         margin: {t:30}
     };
     Plotly.newPlot('bubble', data, layout); 
-  });
-}
+  };
+
 function buildChart(propertyType) {
   console.log("buildChart")
   if (propertyType == "all") {
