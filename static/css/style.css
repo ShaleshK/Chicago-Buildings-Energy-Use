@@ -97,15 +97,23 @@ h2 {
   color: black;
 }
 
-.col-md-2 {
+.col-md-3 {
   justify-content: left;
   float: left;
 }
 
+.col-md-2 {
+  justify-content: left;
+  float: right;
+}
+
+#selDataset{
+  width: 200px;;
+}
 .col-md-8 {
   justify-content: center;
   float: middle;
-  margin-right: 0;
+  margin-left: 180px;
 }
 .well {
   text-align: center;
@@ -113,6 +121,15 @@ h2 {
   /* margin: right; */
   margin-left: 0;
   justify-content: first baseline;
+}
+
+.well2 {
+  text-align: center;
+  width: 300px;
+  /* margin: right; */
+  margin-top: 25;
+  margin-left: 0;
+  justify-content: last baseline;
 }
 
 .my-legend .legend-title {
