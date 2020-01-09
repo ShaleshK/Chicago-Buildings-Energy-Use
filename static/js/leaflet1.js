@@ -145,7 +145,7 @@ function genInfo() {
                 // + "Square Footage: "
                 // + sqFt
                 // + " ft^2</h5>"
-                // + "<h5>"
+                + "<h5>"
                 + "Year Built: "
                 + age
                 + "</h5>"
