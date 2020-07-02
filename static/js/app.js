@@ -1,9 +1,10 @@
 var globalData;
-d3.json("https://agile-beyond-24167.herokuapp.com/API/data").then(test => console.log("test: ", test.data[0]));
+
+// d3.json("https://agile-beyond-24167.herokuapp.com/API/data").then(test => console.log("test: ", test.data[0]));
 function init(data) {
   // var parsedInfo = JSON.parse(information.then(function(Response){console.log(Response)}));
   const url = "https://agile-beyond-24167.herokuapp.com/API/data";
-
+ 
   d3.json(url).then(api_data => {
     data = api_data.data;
   // d3.csv("Buildings.csv").then(data => {
@@ -14,7 +15,7 @@ function init(data) {
     var age = [];
     var kBtuSqft = [];
     var propertyTypes = [];
-    var zipCodes = [];
+    // var zipCodes = [];
     for (var i = 0; i < data.length; i++) {
       if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
         var dataItem = data[i];
@@ -33,11 +34,11 @@ function init(data) {
         // if (!zipCodes.includes(data[i].zip_code)) {
         //   zipCodes.push(data[i].zip_code)
         }   
-      }
-    })
-    console.log(zipCodes);
+    }
+   
+    // console.log(zipCodes);
     var dropdown = d3.select("#selDataset");
-    var zipDropdown = d3.select("#selDataset2");
+    // var zipDropdown = d3.select("#selDataset2");
     
     dropdown.append("option")
       .text("All")
@@ -63,7 +64,7 @@ function init(data) {
     // })
   
     // console.log(sqFt);  , type.replace(/\s/g, '')
-    console.log(kBtuSqft);
+    // console.log(kBtuSqft);
     // Bubble Chart
     var trace1 = {
         x: age,
@@ -85,7 +86,8 @@ function init(data) {
         margin: {t:30}
     };
     Plotly.newPlot('bubble', data, layout); 
-  };
+  });
+}
 
 function buildChart(propertyType) {
   console.log("buildChart")
@@ -103,7 +105,7 @@ function buildChart(propertyType) {
 
     if (data[i].data_year >= 2017 && Number(data[i].site_eui_kbtu_sq_ft)<=500) {
       var dataItem = data[i];
-      var feet = Number(dataItem.SqFt)/100000;
+      var feet = Number(dataItem.gross_floor_area_buildings_sq_ft)/100000;
       // var feet = 100;
       if (feet < 5) {
         feet = 10;
@@ -115,6 +117,7 @@ function buildChart(propertyType) {
       kBtuSqft.push(Number(dataItem.site_eui_kbtu_sq_ft));
     }
   }   
+  console.log(sqFt);
   var trace1 = {
     x: age,
     y: kBtuSqft,
@@ -138,7 +141,7 @@ function buildChart(propertyType) {
   
   console.log("age: ", age);
   console.log("kBtuSqft", kBtuSqft);
-  Plotly.restyle('bubble', {x:[age], y:[kBtuSqft], marker:{size: sqFt, color: age}});
+  Plotly.restyle('bubble', {x:[age], y:[kBtuSqft], text:[property], marker:{size: sqFt, color: age}});
   
 }
 
